@@ -20,13 +20,23 @@ func start(host string, port int, secreat []interface{}) {
 		Msg    string `json:"msg"`
 	}
 	r.GET("/", func(c *gin.Context) {
-		secreat_ := c.Query("secreat")
+		secreat_ := c.Query("s")
 		// fmt.Println(secreat_)
 		access := base_f.In(secreat_, secreat)
 		// fmt.Println(bo)
 		if access {
 			host := c.Query("host")
 			if host != "" {
+				if base_f.Test_ip(host) {
+				} else {
+					_host := base_f.Get_ip(host)
+					if base_f.Test_ip(_host) {
+						host = _host
+					} else {
+						c.String(404, "404")
+						return
+					}
+				}
 				port := c.DefaultQuery("port", "80")
 				cs, msg := base_f.Ipcs(host, port)
 				// cs := base_f.Ipcs("114.114.114.114", "53")
@@ -63,7 +73,7 @@ func start(host string, port int, secreat []interface{}) {
 
 func main() {
 	var config string
-	flag.StringVar(&config, "config", "", "配置文件")
+	flag.StringVar(&config, "c", "", "配置文件")
 	flag.Parse()
 	if flag.NFlag() == 0 {
 		flag.PrintDefaults()
