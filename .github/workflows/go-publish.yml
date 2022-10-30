@@ -53,24 +53,57 @@ jobs:
       - run: CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ./disk/${{ env.Name }}_windows_amd64.exe main.go
       - run: CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ./disk/${{ env.Name }}_darwin_amd64 main.go
 
-      - name: upload to release
-        uses: softprops/action-gh-release@v1
-        with: # 将下述可执行文件 release 上去
-          files: |
-            ${{ env.Name }}_linux_amd64
-            ${{ env.Name }}_linux_arm64
-            ${{ env.Name }}_windows_amd64.exe
-            ${{ env.Name }}_darwin_amd64
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Upload assets1
-      #   id: upload-release-asset
-      #   uses: actions/upload-release-asset@v1
+      # - name: upload to release
+      #   uses: softprops/action-gh-release@v1
+      #   with: # 将下述可执行文件 release 上去
+      #     files: |
+      #       ./disk/${{ env.Name }}_linux_amd64
+      #       ./disk/${{ env.Name }}_linux_arm64
+      #       ./disk/${{ env.Name }}_windows_amd64.exe
+      #       ./disk/${{ env.Name }}_darwin_amd64
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ needs.release.outputs.upload_url }}
-      #     asset_path: ./dist/*
-      #     asset_name: *
-      #     asset_content_type: application/gzip
+
+      - name: Upload linux
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./disk/${{ env.Name }}_linux_amd64 main.go
+          asset_name: ${{ env.Name }}_linux_amd64 main.go
+          asset_content_type: application/gzip
+
+      - name: Upload linux arm64
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./disk/${{ env.Name }}_linux_arm64 main.go
+          asset_name: ${{ env.Name }}_linux_arm64 main.go
+          asset_content_type: application/gzip
+
+      - name: Upload windows
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./disk/${{ env.Name }}_windows_amd64.exe main.go
+          asset_name: ${{ env.Name }}_windows_amd64.exe main.go
+          asset_content_type: application/gzip
+
+      - name: Upload darwin
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./disk/${{ env.Name }}_darwin_amd64 main.go
+          asset_name: ${{ env.Name }}_darwin_amd64 main.go
+          asset_content_type: application/gzip
