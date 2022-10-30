@@ -23,7 +23,6 @@ func start(host string, port int, secreat []interface{}) {
 		secreat_ := c.Query("s")
 		// fmt.Println(secreat_)
 		access := base_f.In(secreat_, secreat)
-		// fmt.Println(bo)
 		if access {
 			host := c.Query("host")
 			if host != "" {
