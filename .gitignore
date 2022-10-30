@@ -2,5 +2,4 @@
 config.json
 ipchecker_arm
 cs.go
-cs.go
 .github/workflows/python-publish.yml
