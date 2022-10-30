@@ -65,7 +65,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload linux
-        id: upload-release-asset
+        id: upload-release-asset1
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
           asset_content_type: application/gzip
 
       - name: Upload linux arm64
-        id: upload-release-asset
+        id: upload-release-asset2
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +87,7 @@ jobs:
           asset_content_type: application/gzip
 
       - name: Upload windows
-        id: upload-release-asset
+        id: upload-release-asset3
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -98,7 +98,7 @@ jobs:
           asset_content_type: application/gzip
 
       - name: Upload darwin
-        id: upload-release-asset
+        id: upload-release-asset4
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
