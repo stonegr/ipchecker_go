@@ -3,3 +3,4 @@ config.json
 ipchecker_arm
 cs.go
 .github/workflows/python-publish.yml
+testgit
